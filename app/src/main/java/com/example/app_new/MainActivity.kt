@@ -14,12 +14,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.app_new.DatabaseHandler.testDatabaseConnection
 import com.example.app_new.ui.theme.App_NewTheme
 import android.widget.TextView
+import android.widget.Button
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
+
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Add the code to set up the "Save Point" button click listener
+        val savePointButton = findViewById<Button>(R.id.savePointButton)
+        savePointButton.setOnClickListener {
+            showSavePointDialog()
+        }
 
         val isConnected = testDatabaseConnection()
 
@@ -37,6 +47,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+private fun showSavePointDialog() {
+    val dialogFragment = SavePointDialogFragment()
+    val activity = AppCompatActivity()
+    dialogFragment.show(activity.supportFragmentManager, "SavePointDialog")
+}
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
